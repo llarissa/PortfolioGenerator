@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-generator",
+  "version": "1.0.0",
+  "description": "personalized portfolio page",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://daimyo_Kim@bitbucket.org/funkyfeatures/p-generator.git"
+  },
+  "author": "Funky Features",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/funkyfeatures/p-generator#readme"
+}
