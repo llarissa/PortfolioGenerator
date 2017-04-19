@@ -1,19 +1,15 @@
 {
-  "name": "portfolio-generator",
+  "name": "portfolio_generator",
   "version": "1.0.0",
-  "description": "personalized portfolio page",
+  "description": "Webapp-Funkyfeatures",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+     "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://daimyo_Kim@bitbucket.org/funkyfeatures/p-generator.git"
-  },
-  "author": "Funky Features",
+  "author": "FunkyFeatures",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/funkyfeatures/p-generator#readme",
   "dependencies": {
+    "express": "^4.15.2",
     "next": "^2.1.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
