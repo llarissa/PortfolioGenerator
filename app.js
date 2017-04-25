@@ -1,21 +1,63 @@
-var express = require('express');
-var path = require('path');
-var app = express();
-var routes = require('./routes/index');
+const express = require('express')
+const bodyParser = require('body-parser')
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
+const next = require('next')
+const admin = require('firebase-admin')
 
-app.use('/', routes);
-app.set('port', process.env.PORT || 8080);
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
 
-//Static files using express for solving the mime conflict
-if(process.argv[2]== "dev"){
-    app.use(express.Static(path.join(__dirname)));
-}
+const firebase = admin.initializeApp({
+  credential: admin.credential.cert(require('./firebaseCredentials').serverCredentials),
+  databaseURL: 'https://with-firebase-23c22.firebaseio.com/' // TODO database URL goes here
+}, 'server')
 
-//view engine
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine());
+app.prepare()
+.then(() => {
+  const server = express()
 
-var server = app.listen(app.get('port'), function() {
-    console.log("Generator started!!!");
-});
+  server.use(bodyParser.json())
+  server.use(session({
+    secret: 'geheimnis',
+    saveUninitialized: true,
+    store: new FileStore({path: '/tmp/sessions', secret: 'geheimnis'}),
+    resave: false,
+    rolling: true,
+    httpOnly: true,
+    cookie: { maxAge: 604800000 } // week
+  }))
+
+  server.use((req, res, next) => {
+    req.firebaseServer = firebase
+    next()
+  })
+
+  server.post('/api/login', (req, res) => {
+    if (!req.body) return res.sendStatus(400)
+
+    const token = req.body.token
+    firebase.auth().verifyIdToken(token)
+      .then((decodedToken) => {
+        req.session.decodedToken = decodedToken
+        return decodedToken
+      })
+      .then((decodedToken) => res.json({ status: true, decodedToken }))
+      .catch((error) => res.json({ error }))
+  })
+
+  server.post('/api/logout', (req, res) => {
+    req.session.decodedToken = null
+    res.json({ status: true })
+  })
+
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
+
+  server.listen(8080, (err) => {
+    if (err) throw err
+    console.log('> Ready on http://localhost:8080')
+  })
+})
