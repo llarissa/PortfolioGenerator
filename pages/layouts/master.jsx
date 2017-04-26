@@ -1,12 +1,11 @@
 var React = require('react');
 
-class MasterLayout extends React.Component {
+class MasterLayout extends Component {
   render() {
     return (
             <html lang="de">
                     <head>           
-                        <meta httpEquiv="Content-Type" content="text/html;charset=utf-8" />                        
-                        <title>{this.props.name}</title>
+                        <meta httpEquiv="Content-Type" content="text/html;charset=utf-8" />                                                
                         <link rel="stylesheet" href="./static/css/style.css" />
                     </head>
                     <body>

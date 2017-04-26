@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
+//var MasterLayout = require('./layouts/master.jsx');
 
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
@@ -87,9 +88,12 @@ export default class Index extends Component {
 
     return <div>
       {        
-         <div>
-             <h1>Der Portfolio Generator mit React !!!</h1>
-         </div>         
+            //<MasterLayout>
+                <div>           
+                    <title>Der Portfolio Generator</title>         
+                    <h1>Der Portfolio Generator mit React!!!</h1>
+                </div>
+           // </MasterLayout>
       }
       {        
         user        
