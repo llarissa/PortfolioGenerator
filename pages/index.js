@@ -97,6 +97,7 @@ export default class Index extends Component {
       {
         user &&
         <div>
+          <p>If your name isn't listed below, please create a new portfolio</p>
           <form onSubmit={this.handleSubmit}>
             <input
               type={'text'}
