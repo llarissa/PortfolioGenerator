@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../pages/layouts/layout'
+import Link from 'next/link';
 
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
@@ -92,6 +93,7 @@ export default class Index extends Component {
         ? <button onClick={this.handleLogout}>Logout</button>
         : <button onClick={this.handleLogin}>Login</button>      
       }
+
       {
         user &&
         <div>
@@ -99,14 +101,14 @@ export default class Index extends Component {
             <input
               type={'text'}
               onChange={this.handleChange}
-              placeholder={'add message'}
+              placeholder={'enter your name'}
               value={value}
             />
           </form>
           <ul>
             {
               messages &&
-              Object.keys(messages).map(key => <li key={key}>{messages[key].text}</li>)
+              Object.keys(messages).map(key => <li key={key}><Link href="/portfolio.js">{messages[key].text}</Link></li>)
             }
           </ul>
         </div>
