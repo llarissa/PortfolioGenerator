@@ -8,32 +8,69 @@ import Layout from '../pages/layouts/layout'
 
 export default class Edit extends Component {
 
+constructor() {
+    super();
+    this.state = {
+      Überschrift: null,
+      Inhalt: null,
+      Unterschrift: null
+    };
+    
+    this.publish = this.publish.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  
+  handleChange({ target }) {
+    this.setState({
+      [target.name]: target.value
+    });
+  }
+
+ publish() {
+    console.log( this.state.Überschrift, this.state.Inhalt, this.state.Unterschrift );
+  }
 
  render () {
-   
-
-
     return <Layout>
-  
-      {
-        <div>
-            
-            <button onClick={this.Edit}>Zurück</button>
+      <div>
+        <input 
+        type="text" 
+        name="Überschrift" 
+        placeholder="Überschrift..." 
+        value={ this.state.Überschrift }
+        onChange={ this.handleChange } 
+         /><br></br>
+       <input 
+        type="text" 
+        name="Inhalt" 
+        placeholder="Inhalt..."
+        value={ this.state.Inhalt } 
+        onChange={ this.handleChange } 
+         />
+         <br></br>
+       <input 
+        type="text" 
+        name="Unterschrift" 
+        placeholder="Unterschrift..."
+        value={ this.state.Unterschrift } 
+        onChange={ this.handleChange } 
+          />
+   <br></br>
+   <button onClick={this.Edit}>Löschen</button>
+   <br></br>
+   <button onClick={this.Edit}>Speichern</button>
 
-            <button onClick={this.Edit}>Änderungen speichern</button>
-
-            <h3> Überschrift EP </h3>   
-            
-            <p> Textblock EP </p>
-            
-            <p> Unterschrift EP </p>
-
-        </div>
+   <style jsx>{`
+      div {
+        line-height: 44px;
       }
+    `}
+    </style>
+
+    
+    </div>
+      </Layout>
 
 
-    </Layout>
-
- 
 }
 }
