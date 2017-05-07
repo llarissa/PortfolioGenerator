@@ -1,1 +1,66 @@
-h1 {color: red;}
+
+
+h1 {
+    color:white;
+    font-family: "Helvetica", sans-serif;;
+    font-size: 50px;
+    }
+    
+div {
+    font-family: "Helvetica", sans-serif;
+    line-height: 2em;
+    color: white;
+    
+}
+
+nav {
+    font-size: 20px;
+    padding: 5px;
+    padding-bottom: 50px;
+    
+}
+
+footer {
+    font-size: 20px;
+    padding-top: 50px;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+button {
+    color: rgb(50,50,50);
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    padding:5px;
+    font-size:12px;
+}
+
+input {
+    color: rgb(50,50,50);
+    font-size:12px;
+    padding:5px;
+    padding-right: 200px;
+}
+
+
+* {
+    padding-left: 10px;
+  
+    font-weight: lighter;
+}
+
+body{
+      background-color: rgb(50,50,50);
+}
+
+p{
+    padding-top:10px;
+}
