@@ -97,6 +97,7 @@ export default class Index extends Component {
       {
         user &&
         <div>
+          <h1>Portfolio Generator</h1>
           <p>If your name isn't listed below, please create a new portfolio</p>
           <form onSubmit={this.handleSubmit}>
             <input

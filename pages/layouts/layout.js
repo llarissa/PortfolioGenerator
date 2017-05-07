@@ -13,7 +13,7 @@ export default ({ children, title = 'Der Portfolio Generator' }) => (
       <nav>
         <Link href='/'><a>Home</a></Link> |
         <Link href='/about'><a>About</a></Link> |
-        <Link href='/contact'><a>Contact</a></Link>
+        <Link href='/contact'><a>Contact</a></Link> |
         <Link href='/edit'><a>Edit</a></Link>
       </nav>
     </header>
