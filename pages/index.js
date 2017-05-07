@@ -3,7 +3,7 @@ import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../pages/layouts/layout'
-import Link from 'next/link';
+import Link from 'next/link'
 
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
@@ -109,7 +109,7 @@ export default class Index extends Component {
           <ul>
             {
               messages &&
-              Object.keys(messages).map(key => <li key={key}><Link href="/portfolio.js">{messages[key].text}</Link></li>)
+              Object.keys(messages).map(key => <li key={key}><Link href={"/portfolio" + "#"+ messages[key].text}><a>{messages[key].text}</a></Link></li>)
             }
           </ul>
         </div>
