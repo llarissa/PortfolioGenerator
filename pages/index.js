@@ -90,8 +90,8 @@ export default class Index extends Component {
     return <Layout>
       {        
         user        
-        ? <button onClick={this.handleLogout}>Logout</button>
-        : <button onClick={this.handleLogin}>Login</button>      
+        ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
+        : <button className="Login" onClick={this.handleLogin}>Login</button>      
       }
 
       {

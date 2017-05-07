@@ -36,11 +36,15 @@ a {
 
 button {
     color: rgb(50,50,50);
+    padding:5px;
+    font-size:12px;
+}
+
+.Logout, .Login {
     position: absolute;
     left: 15px;
     top: 15px;
-    padding:5px;
-    font-size:12px;
+
 }
 
 input {
@@ -50,6 +54,15 @@ input {
     padding-right: 200px;
 }
 
+a:hover {
+    color: greenyellow;
+}
+
+input:focus {
+    outline: none;
+    background-color: rgb(50,50,50);
+    color: white;
+}
 
 * {
     padding-left: 10px;
