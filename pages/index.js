@@ -17,9 +17,8 @@ export default class Index extends Component {
     this.state = {
       user: this.props.user,
       value: '',
-      messages: this.props.messages
-    }
-
+      messages: this.props.messages,      
+    }    
     this.addDbListener = this.addDbListener.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -69,15 +68,23 @@ export default class Index extends Component {
   handleSubmit (event) {
     event.preventDefault()
     const date = new Date().getTime()
-    firebase.database().ref(`messages/${date}`).set({
+    firebase.database().ref(`messages/${date}`).set({      
       id: date,
       text: this.state.value
     })
     this.setState({ value: '' })
   }
 
-  handleLogin () {
+  handleLogin () {        
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+  }
+
+  guest_handleLogin () {        
+    firebase.auth().signInAnonymously().catch(function(error) {  
+    var errorCode = error.code;
+    var errorMessage = error.message;  
+    console.log(errorCode + " - " + errorMessage)
+  });
   }
 
   handleLogout () {
@@ -85,20 +92,24 @@ export default class Index extends Component {
   }
 
   render () {
-    const { user, value, messages } = this.state
-
+    const {guest, user, value, messages } = this.state
+    
     return <Layout>
       {        
         user        
-        ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
-        : <button className="Login" onClick={this.handleLogin}>Login</button>      
+        ? <button onClick={this.handleLogout}>Logout</button>
+        : <button onClick={this.handleLogin}>Login</button>       
       }
-
+      {        
+        guest       
+        ? <button onClick={this.handleLogout}>guest Logout</button>
+        : <button onClick={this.guest_handleLogin}>guest Login</button>       
+      }
       {
         user &&
         <div>
-          <h1>Portfolio Generator</h1>
-          <p>If your name isn't listed below, please create a new portfolio</p>
+          <p>If your name isn't listed below, please create a new portfolio</p> 
+                            
           <form onSubmit={this.handleSubmit}>
             <input
               type={'text'}
@@ -106,16 +117,16 @@ export default class Index extends Component {
               placeholder={'enter your name'}
               value={value}
             />
-          </form>
+          </form>                            
           <ul>
             {
               messages &&
-              Object.keys(messages).map(key =>
-               <li key={key}>
-                 <Link href={"/portfolio" + "#"+ messages[key].id}>
-                   <a>{messages[key].text}</a>
-                 </Link>
-              </li>)
+              Object.keys(messages).map(key => 
+                <li key={key}>
+                  <Link href={"/portfolio?id=" + messages[key].id}> 
+                    <a>{messages[key].text}</a>
+                  </Link>
+                </li>)
             }
           </ul>
         </div>
