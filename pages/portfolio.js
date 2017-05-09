@@ -6,63 +6,94 @@ import Layout from '../pages/layouts/layout'
 import Link from '../pages/index'
 
 export default class Portfolio extends Component {
-
-constructor(props) {
-  super(props)
-  this.state = {file: '',imagePreviewUrl:''}
-}
-
- _handleSubmit(e) {
-    e.preventDefault()
-    console.log('handle uploading-', this.state.file)
+  static async getInitialProps ({req, query}) {
+    const user = req && req.session ? req.session.decodedToken : null
+    const snap = await req.firebaseServer.database().ref('messages').once('value') //db änderung handler
+    return { user, messages: snap.val() }
   }
 
-  _handleImageChange(e) {
-    e.preventDefault()
+  constructor(props)
+  {
+    super(props)
+      this.state = {
+      user: this.props.user,
+      value: '',
+      messages: this.props.messages
+  }
+    this.addDbListener = this.addDbListener.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-    let reader = new FileReader()
-    let file = e.target.files[0]
+  componentDidMount () {
+    firebase.initializeApp(clientCredentials)
 
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      })
-    }
+    if (this.state.user) this.addDbListener()
 
-    reader.readAsDataURL(file)
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user: user })
+        return user.getToken()
+          .then((token) => {
+            // eslint-disable-next-line no-undef
+            return fetch('/api/login', {
+              method: 'POST',
+              // eslint-disable-next-line no-undef
+              headers: new Headers({ 'Content-Type': 'application/json' }),
+              credentials: 'same-origin',
+              body: JSON.stringify({ token })
+            })
+          }).then((res) => this.addDbListener())
+      } else {
+        this.setState({ user: null })
+        // eslint-disable-next-line no-undef
+        fetch('/api/logout', {
+          method: 'POST',
+          credentials: 'same-origin'
+        }).then(() => firebase.database().ref('messages').off())
+      }
+    })
+  }
+  
+  addDbListener () {    
+    firebase.database().ref('messages').on('value', snap => {
+      const messages = snap.val()
+      if (messages) this.setState({ messages })
+    })
+  }
+
+ handleChange (event) {
+    this.setState({ value: event.target.value })
+  }
+
+  handleSubmit (event) {
+    event.preventDefault()
+    const date = new Date().getTime()
+    firebase.database().ref(`messages/${date}`).set({
+      id: date,
+      text: this.state.value
+    })
+    this.setState({ value: '' })
   }
 
   render() {
-     let {imagePreviewUrl} = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
-    } else {
-      $imagePreview = (<div className="previewText">Your portfolio seems to be empty. Add your first image</div>);
-    }
+    const { messages } = this.state
 
-return (
-<Layout>
-  <div className = "title"> 
-      <h1>Hier sollte der Name des Portfolioinhabers stehen</h1>
-  </div>
-
-  <div>
-    <form onSubmit={(e)=>this._handleSubmit(e)}>
-          <input className="fileInput" 
-            type="file" 
-            onChange={(e)=>this._handleImageChange(e)} />
-          <button className="submitButton" 
-            type="submit" 
-            onClick={(e)=>this._handleSubmit(e)}>Upload Image</button>
-    </form>
-      <div className="imgPreview">
-          {$imagePreview}     
+    return (
+    <Layout>
+      <div className = "title"> 
+          <h1>Portfolio-Title</h1>          
+                    {messages && Object.keys(messages).map(key => 
+                <h2 key={this.props.url.query.id}>
+                    {messages[this.props.url.query.id].text}                 
+                </h2>)}
       </div>
-    </div>   
+      <div>
+            <br></br>
+            <button onClick={this.Portfolio}>Add project</button>
+      </div>  
+      <ul>
+      </ul> 
       </Layout>
 )}
-
 }
-
