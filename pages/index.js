@@ -97,17 +97,18 @@ export default class Index extends Component {
     return <Layout>
       {        
         user        
-        ? <button onClick={this.handleLogout}>Logout</button>
-        : <button onClick={this.handleLogin}>Login</button>       
+        ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
+        : <button className="Login" onClick={this.handleLogin}>Login</button>       
       }
       {        
         guest       
-        ? <button onClick={this.handleLogout}>guest Logout</button>
-        : <button onClick={this.guest_handleLogin}>guest Login</button>       
+        ? <button className="guestLogout" onClick={this.handleLogout}>guest Logout</button>
+        : <button className="guestLogin" onClick={this.guest_handleLogin}>guest Login</button>       
       }
       {
         user &&
         <div>
+          <h1>Portfolio Generator</h1>
           <p>If your name isn't listed below, please create a new portfolio</p> 
                             
           <form onSubmit={this.handleSubmit}>

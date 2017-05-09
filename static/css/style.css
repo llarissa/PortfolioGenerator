@@ -20,6 +20,11 @@ nav {
     
 }
 
+img {
+    width: 1000px;
+    padding-top: 20px;
+}
+
 footer {
     font-size: 20px;
     padding-top: 50px;
@@ -47,6 +52,12 @@ button {
 
 }
 
+.guestLogin, .guestLogout {
+    position: absolute;
+    left: 15px;
+    top: 50px;
+}
+
 input {
     color: rgb(50,50,50);
     font-size:12px;
@@ -65,13 +76,14 @@ input:focus {
 }
 
 * {
-    padding-left: 10px;
+   
   
     font-weight: lighter;
 }
 
 body{
       background-color: rgb(50,50,50);
+      padding-left: 100px;
 }
 
 p{
