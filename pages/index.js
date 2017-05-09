@@ -110,7 +110,12 @@ export default class Index extends Component {
           <ul>
             {
               messages &&
-              Object.keys(messages).map(key => <li key={key}><Link href={"/portfolio" + "#"+ messages[key].text}><a>{messages[key].text}</a></Link></li>)
+              Object.keys(messages).map(key =>
+               <li key={key}>
+                 <Link href={"/portfolio" + "#"+ messages[key].id}>
+                   <a>{messages[key].text}</a>
+                 </Link>
+              </li>)
             }
           </ul>
         </div>
