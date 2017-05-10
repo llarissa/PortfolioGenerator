@@ -5,9 +5,11 @@ import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../pages/layouts/layout'
 import Link from 'next/link'
 
+var guest_auth = true;
+
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
-    const user = req && req.session ? req.session.decodedToken : null
+    const user = req && req.session ? req.session.decodedToken : null    
     const snap = await req.firebaseServer.database().ref('messages').once('value') //db änderung handler
     return { user, messages: snap.val() }
   }
@@ -15,7 +17,7 @@ export default class Index extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: this.props.user,
+      user: this.props.user,      
       value: '',
       messages: this.props.messages,      
     }    
@@ -27,7 +29,7 @@ export default class Index extends Component {
   componentDidMount () {
     firebase.initializeApp(clientCredentials)
 
-    if (this.state.user) this.addDbListener()
+    if (this.state.user) this.addDbListener()    
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -75,42 +77,36 @@ export default class Index extends Component {
     this.setState({ value: '' })
   }
 
-  handleLogin () {        
+  handleLogin () { 
+    guest_auth = false;    
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
   }
 
-  guest_handleLogin () {        
+  guest_handleLogin () {       
+    guest_auth = true; 
     firebase.auth().signInAnonymously().catch(function(error) {  
     var errorCode = error.code;
     var errorMessage = error.message;  
-    console.log(errorCode + " - " + errorMessage)
+    console.log(errorCode + " - " + errorMessage)    
   });
   }
 
   handleLogout () {
+    guest_auth = false;
     firebase.auth().signOut()
-  }
+    }
 
   render () {
-    const {guest, user, value, messages } = this.state
-    
-    return <Layout>
-      {        
-        user        
-        ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
-        : <button className="Login" onClick={this.handleLogin}>Login</button>       
-      }
-      {        
-        guest       
-        ? <button className="guestLogout" onClick={this.handleLogout}>guest Logout</button>
-        : <button className="guestLogin" onClick={this.guest_handleLogin}>guest Login</button>       
-      }
-      {
-        user &&
-        <div>
-          <h1>Portfolio Generator</h1>
-          <p>If your name isn't listed below, please create a new portfolio</p> 
-                            
+    const {user, value, messages} = this.state      
+    let aut_stat, guest_stat;
+
+    if (guest_auth)
+    {
+      guest_stat = (<h2 className="guest_auth">Gastaccount</h2>);
+    }
+    else
+    {
+      aut_stat = (
           <form onSubmit={this.handleSubmit}>
             <input
               type={'text'}
@@ -118,7 +114,26 @@ export default class Index extends Component {
               placeholder={'enter your name'}
               value={value}
             />
-          </form>                            
+          </form>     
+                    )
+    }
+
+    return <Layout>  
+      {              
+        user        
+        ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
+        : <button className="Login" onClick={this.handleLogin}>Login</button>               
+      }  
+      {
+        <button className="gast_Login" onClick={this.guest_handleLogin}>Gast Login</button>
+      }              
+          <h1>Portfolio Generator</h1> 
+          {guest_stat}         
+          <p>If your name isn't listed below, please create a new portfolio</p>               
+      {
+       user &&
+        <div>              
+          {aut_stat}                
           <ul>
             {
               messages &&
