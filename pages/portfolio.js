@@ -23,6 +23,7 @@ export default class Portfolio extends Component {
     this.addDbListener = this.addDbListener.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount () {
@@ -76,6 +77,11 @@ export default class Portfolio extends Component {
     this.setState({ value: '' })
   }
 
+   handleClick(e) {
+    e.preventDefault(); 
+  }
+
+
   render() {
     const { messages } = this.state
 
@@ -87,10 +93,11 @@ export default class Portfolio extends Component {
                     {messages[this.props.url.query.id].text}                 
                 </h1>)}
       </div>
-      <div>
-            <br></br>
-            <button onClick={this.Portfolio}>Add project</button>
-      </div>  
+      <form method='GET' action='../edit'>
+        <input type='submit' value='Edit'>
+        </input>
+              
+      </form>  
       <ul>
       </ul> 
       </Layout>
