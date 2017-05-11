@@ -81,12 +81,11 @@ export default class Portfolio extends Component {
 
     return (
     <Layout>
-      <div className = "title"> 
-          <h1>Portfolio-Title</h1>          
+      <div className = "title">         
                     {messages && Object.keys(messages).map(key => 
-                <h2 key={this.props.url.query.id}>
+                <h1 key={this.props.url.query.id}>
                     {messages[this.props.url.query.id].text}                 
-                </h2>)}
+                </h1>)}
       </div>
       <div>
             <br></br>
