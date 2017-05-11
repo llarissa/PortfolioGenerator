@@ -89,3 +89,23 @@ body{
 p{
     padding-top:10px;
 }
+
+
+input[type="file"] {
+     display: none;
+}
+
+label {
+     padding: 10px;
+     border: 1px solid lightgrey;
+     border-radius: 5px;
+     margin:5px;
+}
+
+label:hover {
+    color: greenyellow;
+}
+
+.uploadControls {
+    display: inline-block;
+}

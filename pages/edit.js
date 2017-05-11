@@ -4,6 +4,8 @@ import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../pages/layouts/layout'
 import ImageUploading from '../pages/imageUploading'
+import VideoUploading from '../pages/videoUploading'
+import Save from '../pages/saveChanges'
 
 
 export default class Edit extends Component {
@@ -17,11 +19,23 @@ constructor() {
     }
   }
   
+  
 
  render () {
+
     return <Layout>
-      <ImageUploading >
-      </ImageUploading>
+      <Save>
+      </Save>
+      
+         <div className = "title"> 
+             <h1>Hier sollte der Name des Portfolioinhabers stehen</h1>
+         </div>
+    
+          <ImageUploading >
+          </ImageUploading>
+      
+          <VideoUploading>
+          </VideoUploading>
       </Layout>
   }
 }
