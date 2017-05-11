@@ -94,8 +94,8 @@ export default class Portfolio extends Component {
                 </h1>)}
       </div>
       <form method='GET' action='../edit'>
-        <input type='submit' value='Edit'>
-        </input>
+        <button type='submit'>Edit
+        </button>
               
       </form>  
       <ul>
