@@ -109,3 +109,11 @@ label:hover {
 .uploadControls {
     display: inline-block;
 }
+
+textarea {
+min-height: 120px;
+min-width: 348px;
+overflow-y: auto;
+word-wrap:break-word;
+resize: none
+}

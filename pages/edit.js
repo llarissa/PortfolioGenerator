@@ -5,6 +5,7 @@ import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../pages/layouts/layout'
 import ImageUploading from '../pages/imageUploading'
 import VideoUploading from '../pages/videoUploading'
+import TextEditing from '../pages/textEditing'
 import Save from '../pages/saveChanges'
 
 
@@ -36,6 +37,9 @@ constructor() {
       
           <VideoUploading>
           </VideoUploading>
+
+          <TextEditing>
+          </TextEditing>
       </Layout>
   }
 }
