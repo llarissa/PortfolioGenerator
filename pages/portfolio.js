@@ -93,11 +93,11 @@ export default class Portfolio extends Component {
                     {messages[this.props.url.query.id].text}                 
                 </h1>)}
       </div>
-      <form method='GET' action='../edit'>
-        <button type='submit'>Edit
-        </button>
-              
-      </form>  
+
+          <form action="../edit" method="GET">
+          <button name="id" value={this.props.url.query.id} type="submit">Edit </button> 
+          </form>
+
       <ul>
       </ul> 
       </Layout>
