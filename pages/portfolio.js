@@ -5,11 +5,16 @@ import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../pages/layouts/layout'
 import Link from '../pages/index'
 
-export default class Portfolio extends Component {
+export default class Index extends Component {
   static async getInitialProps ({req, query}) {
-    const user = req && req.session ? req.session.decodedToken : null
+    const user = req && req.session ? req.session.decodedToken : null    
+    let inspList = null;
+    if(req && req.firebaseServer)
+    {          
     const snap = await req.firebaseServer.database().ref('messages').once('value') //db änderung handler
-    return { user, messages: snap.val() }
+    inspList = snap.val();
+    }
+    return { user, messages: inspList }
   }
 
   constructor(props)
@@ -27,9 +32,12 @@ export default class Portfolio extends Component {
   }
 
   componentDidMount () {
-    firebase.initializeApp(clientCredentials)
+    if(firebase.apps.length === 0)
+    {
+      firebase.initializeApp(clientCredentials)
+    }
 
-    if (this.state.user) this.addDbListener()
+    if (this.state.user) this.addDbListener()    
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {

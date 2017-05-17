@@ -10,8 +10,13 @@ var guest_auth = true;
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
     const user = req && req.session ? req.session.decodedToken : null    
+    let inspList = null;
+    if(req && req.firebaseServer)
+    {          
     const snap = await req.firebaseServer.database().ref('messages').once('value') //db änderung handler
-    return { user, messages: snap.val() }
+    inspList = snap.val();
+    }
+    return { user, messages: inspList }
   }
 
   constructor (props) {
@@ -27,7 +32,10 @@ export default class Index extends Component {
   }
 
   componentDidMount () {
-    firebase.initializeApp(clientCredentials)
+    if(firebase.apps.length === 0)
+    {
+      firebase.initializeApp(clientCredentials)
+    }
 
     if (this.state.user) this.addDbListener()    
 
