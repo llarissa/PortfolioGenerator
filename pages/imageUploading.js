@@ -3,49 +3,71 @@ import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import Link from '../pages/index'
-var file
+var files
 
 export default class ImageUploading extends Component {
 
 constructor(props) {
   super(props)
-  this.state = {file: '',imagePreviewUrl:''}
+  this.state = {file: '',imagePreviewUrl:'', i : 0}
+  this.images = [];
 }
 
- /*_handleSubmit(e) {
-    e.preventDefault()
-    console.log('handle uploading-', this.state.file)
-  }
-*/
   handleImageChange(e) {
     e.preventDefault()
-
-    let reader = new FileReader()
-    file = e.target.files[0]
+    
+    var counter;
+    let reader = new FileReader();   
+    files = e.target.files;             
 
     reader.onloadend = () => {
       this.setState({
-        file: file,
+        file: this.state.files,
         imagePreviewUrl: reader.result
-      })
-    }
+      })   
 
-    reader.readAsDataURL(file)
+      this.images.push(reader.result);
+
+      counter++;
+
+      if (counter < files.length)
+      {
+       reader.readAsDataURL(files[counter])
+      }      
+      else
+      {
+        this.setState({i : this.state.i++});        
+      }
+
+    }
+    counter = 0;
+    reader.readAsDataURL(files[counter])
   }
 
+list_pictures()
+{
+  let {imagePreviewUrl} = this.state;
+  if (imagePreviewUrl) 
+  {         
+    let key = 0;
+            return this.images.map((image) => {
+            key++;
+
+            return(
+                <img key={key} src={image}/>
+            );
+        });
+       
+  } else
+  {
+    return(<h2 className="previewText">Your portfolio seems to be empty. Add your first image</h2>)
+  } 
+}
+
   render() {
-    let {imagePreviewUrl} = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl}/>)
-    } else {
-      $imagePreview = (<h2 className="previewText">Your portfolio seems to be empty. Add your first image</h2>)
-    }
-
-return (
-
-  <div>
-    <div className="imgPreview">{$imagePreview}</div>
+  return (
+  <div>    
+    <div className="imgPreview">{this.list_pictures()}</div>        
     <label className="uploadControls">Add Image
        <input className="addBtn" type="file" accept="image/*" onChange={(e)=>this.handleImageChange(e)} multiple/>
     </label>
