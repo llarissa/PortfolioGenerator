@@ -89,7 +89,6 @@ export default class Index extends Component {
     e.preventDefault(); 
   }
 
-
   render() {
     const { messages } = this.state
 
@@ -100,7 +99,7 @@ export default class Index extends Component {
                 <h1 key={this.props.url.query.id}>
                     {messages[this.props.url.query.id].text}                 
                 </h1>)}
-      </div>
+      </div> 
 
           <form action="../edit" method="GET">
           <button name="id" value={this.props.url.query.id} type="submit">Edit </button> 
