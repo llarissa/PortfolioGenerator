@@ -2,53 +2,58 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
-
+import ImageUploading from './imageUploading.js'
+var files;
 
 export default class Save extends Component {
 
-constructor() {
-    super()
+constructor(props) {
+    super(props)
+      this.state = { render_now : 0 }
+      this.databaseWriter = this.databaseWriter.bind(this)
+}
+
+  handleUploader(e) {
+    e.preventDefault()    
+
+    files = this.imgUploader.state.imagefilelist; 
+
+    for(var i=0; i < files.length; i++){        
+        var filename = files[i].name
+        var storageRef = firebase.storage().ref('Images/'+ filename)
+        var uploadTask = storageRef.put(files[i])
+        console.log('file', files[i])
+
+          //Dateien im Storage mit Database verknüpfen
+ 
+	      uploadTask.on('state_changed', (snapshot) => {},
+	       // Handle unsuccessful uploads
+       (error) => {console.log('upload error:', error)},
+        // Handle successful uploads on complete
+        () => {
+            var downloadURL = uploadTask.snapshot.downloadURL 
+            let PID = this.props.user_ID;   
+            const imageID = new Date().getTime()
+            firebase.database().ref('messages/' + PID + '/images/' + imageID).set({
+                            id: imageID,                   
+                            Text: '',
+                            image: downloadURL
+                          });                        
+                                  
+        console.log('url:', downloadURL)
+        })
+        this.setState({render_now : this.state.render_now++});
+        }                         
   }
 
-handleUpload(e){
-  //Daten Firebase-Storage speichern
-var filename = file.name
-var storageRef = firebase.storage().ref('/ImageUploads'+ filename)
-var uploadRef = firebase.database().ref('/ImageUploads/uploads')
-var uploadTask = storageRef.put(file)
-console.log('file', file)
+databaseWriter(file) {  
+  //Daten Firebase-Storage speichern         
 
-  //Dateien im Storage mit Database verknüpfen
- 
-	uploadTask.on('state_changed', (snapshot) => {},
-	     // Handle unsuccessful uploads
-       (error) => {
-       console.log('upload error:', error)},
-       // Handle successful uploads on complete
-	     () => {
-	    var postKey = firebase.database().ref('Posts/').push().key
-      var downloadURL = uploadTask.snapshot.downloadURL
-      var updates = {}
-      var postData = {
-         url: downloadURL,
-         filename: filename,
-         user: this.user
-      }
-updates ['/Posts/'+postKey] = postData
-firebase.database().ref().update(updates)
-console.log('url:', downloadURL)
-})
-storageRef.child(file.name).getDownloadURL().then((url) => {
-var image = document.getElementById()
-image.src = url
-})
 }
 
 render () {
     return <div>
-     <button type="button" onClick={(e)=>this.handleUpload(e)}>Änderungen speichern</button>
-</div>
-}
-
-
-}
+      <button type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>
+      <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>
+    </div>
+}}

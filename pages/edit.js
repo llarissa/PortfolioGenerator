@@ -8,7 +8,6 @@ import VideoUploading from '../pages/videoUploading'
 import TextEditing from '../pages/textEditing'
 import Save from '../pages/saveChanges'
 
-
 export default class Edit extends Component {
   static async getInitialProps ({req, query}) {
     const user = req && req.session ? req.session.decodedToken : null    
@@ -72,22 +71,41 @@ constructor(probs) {
     })
   }
 
+    showImages()
+    {
+        let imageList = this.state.messages[this.props.url.query.id].images;
+        if (!imageList) imageList = {};     
+        let key = 0;   
+
+        return Object.keys(imageList).map((element) => {
+            
+            let image = imageList[element].image;   
+            key++;         
+
+            return(
+                <img key={key} src={image}/>
+            );
+        });
+    }
+
  render () {
-  const { messages } = this.state
+  const { messages, Files } = this.state  
 
     return <Layout>
-      <Save>
-      </Save>
-      
+
          <div className = "title"> 
-             <h1 key={this.props.url.query.id}>
+             <h1>
                     {messages[this.props.url.query.id].text}                 
-                </h1>
-         </div>
-    
-          <ImageUploading >
-          </ImageUploading>
+             </h1>
+         </div>  
+
+          <Save user_ID={this.props.url.query.id}>
+          </Save>
       
+              <div>
+                  {this.showImages()}
+              </div> 
+
           <VideoUploading>
           </VideoUploading>
 

@@ -1,2 +1,4 @@
 node_modules/
 .next/
+app.js
+firebaseCredentials.js

@@ -89,6 +89,23 @@ export default class Index extends Component {
     e.preventDefault(); 
   }
 
+    showImages()
+    {
+        let imageList = this.state.messages[this.props.url.query.id].images;
+        if (!imageList) imageList = {};     
+        let key = 0;   
+
+        return Object.keys(imageList).map((element) => {
+            
+            let image = imageList[element].image;   
+            key++;         
+
+            return(
+                <img key={key} src={image}/>
+            );
+        });
+    }
+
   render() {
     const { messages } = this.state
 
@@ -100,6 +117,10 @@ export default class Index extends Component {
                     {messages[this.props.url.query.id].text}                 
                 </h1>)}
       </div> 
+
+              <div>
+                  {this.showImages()}
+              </div> 
 
           <form action="../edit" method="GET">
           <button name="id" value={this.props.url.query.id} type="submit">Edit </button> 
