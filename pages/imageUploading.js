@@ -15,6 +15,17 @@ constructor(props) {
     this.images = []    
 }
 
+deleteImage (e) {
+
+  var key = e.target.getAttribute("data");
+  console.log(key);
+  this.images.splice(key, 1);
+
+  this.setState({images:this.images})                            
+
+}
+
+
   handleImageChange(e) {
     e.preventDefault()
     
@@ -51,14 +62,18 @@ list_pictures()
   let {imagePreviewUrl} = this.state;
   if (imagePreviewUrl) 
   {         
-    let key = 0;
+    let key = -1;
             return this.images.map((image) => {
             key++;            
 
             return(
-                <img key={key} src={image}/>                   
+              <div key={key}>
+                <img src={image}/>
+                <button data={key} className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
+              </div>
             );
-        });               
+        });
+       
   } else
   {
     return(<h2 className="previewText">Your portfolio seems to be empty. Add your first image</h2>)
