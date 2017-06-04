@@ -88,6 +88,24 @@ constructor(probs) {
         });
     }
 
+    
+    showVideos()
+    {
+        let videoList = this.state.messages[this.props.url.query.id].videos;
+        if (!videoList) videoList = {};     
+        let key = 0;   
+
+        return Object.keys(videoList).map((element) => {
+            
+            let video = videoList[element].video;   
+            key++;         
+
+            return(
+                <video key={key} src={video}/>
+            );
+        });
+    }
+
  render () {
   const { messages, Files } = this.state  
 
@@ -104,6 +122,7 @@ constructor(probs) {
       
               <div>
                   {this.showImages()}
+                   {this.showVideos()}
               </div> 
 
           <VideoUploading>

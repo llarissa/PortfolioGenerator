@@ -3,7 +3,7 @@ import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import Link from '../pages/index'
-var files;
+var files
 
 export default class ImageUploading extends Component {
 
