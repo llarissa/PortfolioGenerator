@@ -15,6 +15,16 @@ constructor(props) {
     this.videos = []    
 }
 
+deleteVideo (e) {
+
+  var key = e.target.getAttribute("data");
+  console.log(key);
+  this.videos.splice(key, 1);
+
+  this.setState({videos:this.videos})                            
+
+}
+
  handleVideoChange(e) {
     e.preventDefault()
 
@@ -52,12 +62,15 @@ list_videos()
   let {videoPreviewUrl} = this.state;
   if (videoPreviewUrl) 
   {         
-    let key = 0;
+    let key = -1;
             return this.videos.map((video) => {
             key++;            
 
             return(
-                <video key={key} src={video} controls/>                   
+               <div key={key}>
+                <video src={video} controls/>     
+                <button data={key} className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>  
+                </div>            
             );
         });               
   } else
