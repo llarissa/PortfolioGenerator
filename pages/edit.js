@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
-import Layout from '../pages/layouts/layout'
-import ImageUploading from '../pages/imageUploading'
-import VideoUploading from '../pages/videoUploading'
-import TextEditing from '../pages/textEditing'
-import Save from '../pages/saveChanges'
+import Layout from '../components/layouts/layout'
+import ImageUploading from '../components/imageUploading'
+import VideoUploading from '../components/videoUploading'
+import TextEditing from '../components/textEditing'
+import Save from '../components/saveChanges'
 
 export default class Edit extends Component {
   static async getInitialProps ({req, query}) {

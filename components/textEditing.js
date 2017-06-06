@@ -3,7 +3,7 @@ import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import Link from '../pages/index'
-import Layout from '../pages/layouts/layout'
+import Layout from '../components/layouts/layout'
 
 
 

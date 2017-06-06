@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
-import Layout from '../pages/layouts/layout'
+import Layout from '../components/layouts/layout'
 import Link from 'next/link'
 
 var guest_auth = true;

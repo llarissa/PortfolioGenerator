@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
-import ImageUploading from './imageUploading.js'
-import VideoUploading from './videoUploading.js'
-var img_files;
-var vid_files;
+import ImageUploading from '../components/imageUploading.js'
+import VideoUploading from '../components/videoUploading.js'
+var img_files
+var vid_files
 
 export default class Save extends Component {
 
