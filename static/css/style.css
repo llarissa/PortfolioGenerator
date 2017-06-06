@@ -40,10 +40,20 @@ a {
 }
 
 button {
-    color: rgb(50,50,50);
+    color: white;
+    background-color: rgb(50,50,50);
     padding:5px;
-    font-size:12px;
+    font-size:16px;
+    padding: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin:5px;
 }
+
+button:hover {
+    color: greenyellow;
+}
+
 
 .Logout, .Login {
     position: absolute;
@@ -117,3 +127,4 @@ overflow-y: auto;
 word-wrap:break-word;
 resize: none
 }
+
