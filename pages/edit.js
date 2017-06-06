@@ -122,11 +122,10 @@ constructor(probs) {
       
               <div>
                   {this.showImages()}
-                   {this.showVideos()}
               </div> 
-
-          <VideoUploading>
-          </VideoUploading>
+              <div>
+                  {this.showVideos()}
+              </div>
 
           <TextEditing>
           </TextEditing>

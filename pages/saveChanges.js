@@ -3,7 +3,9 @@ import firebase from 'firebase'
 import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import ImageUploading from './imageUploading.js'
-var files;
+import VideoUploading from './videoUploading.js'
+var img_files;
+var vid_files;
 
 export default class Save extends Component {
 
@@ -16,13 +18,14 @@ constructor(props) {
   handleUploader(e) {
     e.preventDefault()    
 
-    files = this.imgUploader.state.imagefilelist; 
+    img_files = this.imgUploader.state.imagefilelist; 
+    vid_files = this.vidUploader.state.videofilelist;    
 
-    for(var i=0; i < files.length; i++){        
-        var filename = files[i].name
+    for(var i=0; i < img_files.length; i++){        
+        var filename = img_files[i].name
         var storageRef = firebase.storage().ref('Images/'+ filename)
-        var uploadTask = storageRef.put(files[i])
-        console.log('file', files[i])
+        var uploadTask = storageRef.put(img_files[i])
+        console.log('file', img_files[i])
 
           //Dateien im Storage mit Database verknüpfen
  
@@ -43,6 +46,33 @@ constructor(props) {
         console.log('url:', downloadURL)
         })
         this.setState({render_now : this.state.render_now++});
+      }  
+
+    for(var i=0; i < vid_files.length; i++){        
+        var filename = vid_files[i].name
+        var storageRef = firebase.storage().ref('Videos/'+ filename)
+        var uploadTask = storageRef.put(vid_files[i])
+        console.log('file', vid_files[i])
+
+          //Dateien im Storage mit Database verknüpfen
+ 
+	      uploadTask.on('state_changed', (snapshot) => {},
+	       // Handle unsuccessful uploads
+       (error) => {console.log('upload error:', error)},
+        // Handle successful uploads on complete
+        () => {
+            var downloadURL = uploadTask.snapshot.downloadURL 
+            let PID = this.props.user_ID;   
+            const videoID = new Date().getTime()
+            firebase.database().ref('messages/' + PID + '/videos/' + videoID).set({
+                            id: videoID, 
+                            Text: '',
+                            video: downloadURL
+                          });                        
+                                  
+        console.log('url:', downloadURL)
+        })
+        this.setState({render_now : this.state.render_now++});
         }                         
   }
 
@@ -55,5 +85,7 @@ render () {
     return <div>
       <button type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>
       <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>
+      <VideoUploading ref={(vidUploader) => { this.vidUploader = vidUploader}}></VideoUploading>
     </div>
 }}
+                  

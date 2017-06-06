@@ -102,8 +102,25 @@ export default class Index extends Component {
 
             return(
                 <img key={key} src={image}/>
-            );
-        });
+            )
+        })
+    }
+
+     showVideos()
+    {
+        let videoList = this.state.messages[this.props.url.query.id].videos;
+        if (!videoList) videoList = {};     
+        let key = 0;   
+
+        return Object.keys(videoList).map((element) => {
+            
+            let video = videoList[element].video;   
+            key++;         
+
+            return(
+                <video key={key} src={video}/>
+            )
+        })
     }
 
   render() {
@@ -120,6 +137,10 @@ export default class Index extends Component {
 
               <div>
                   {this.showImages()}
+              </div> 
+
+              <div>
+                  {this.showVideos()}
               </div> 
 
           <form action="../edit" method="GET">
