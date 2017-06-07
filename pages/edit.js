@@ -5,7 +5,6 @@ import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../components/layouts/layout'
 import ImageUploading from '../components/imageUploading'
 import VideoUploading from '../components/videoUploading'
-import TextEditing from '../components/textEditing'
 import Save from '../components/saveChanges'
 
 export default class Edit extends Component {
@@ -79,11 +78,19 @@ constructor(probs) {
 
         return Object.keys(imageList).map((element) => {
             
-            let image = imageList[element].image;   
+            let image = imageList[element].image;  
+            let image_text = imageList[element].Text; 
             key++;         
 
             return(
-                <img key={key} src={image}/>
+              <div>
+                <img key={key+1000} src={image}/>
+                <br></br>
+                <textarea key={key} placeholder='Bildbeschriftung' 
+                    id="textarea" value={image_text} 
+                    onChange={this.onChange}>
+                </textarea>
+                </div>
             );
         });
     }
@@ -97,11 +104,19 @@ constructor(probs) {
 
         return Object.keys(videoList).map((element) => {
             
-            let video = videoList[element].video;   
+            let video = videoList[element].video;  
+            let video_text = videoList[element].Text;  
             key++;         
-
+            
             return(
+              <div>
                 <video key={key} src={video}/>
+                <br></br>
+                <textarea key={key+2000} placeholder='Videobeschriftung'
+                    id="textarea" value={video_text} 
+                    onChange={this.onChange}>
+                </textarea>
+              </div>
             );
         });
     }
@@ -119,16 +134,15 @@ constructor(probs) {
 
           <Save user_ID={this.props.url.query.id}>
           </Save>
-      
-              <div>
-                  {this.showImages()}
-              </div> 
-              <div>
-                  {this.showVideos()}
-              </div>
+           
+            <input type="text" placeholder="Überschrift" className="title"
+              value={this.state.nameOne} onChange={this.onChange}/>
 
-          <TextEditing>
-          </TextEditing>
+            <div> {this.showImages()} </div> 
+            <div> {this.showVideos()} </div>
+
+            <input type="text" placeholder="Unterschrift" className="TextThree"          
+              value={this.state.nameThree} onChange={this.onChange}/>
       </Layout>
   }
 }
