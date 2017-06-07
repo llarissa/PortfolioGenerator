@@ -80,7 +80,9 @@ export default class Index extends Component {
     const date = new Date().getTime()
     firebase.database().ref(`messages/${date}`).set({      
       id: date,
-      text: this.state.value
+      text: this.state.value,
+      headline: 'Überschrift',
+      signature: 'Unterschrift'
     })
     this.setState({ value: '' })
   }
