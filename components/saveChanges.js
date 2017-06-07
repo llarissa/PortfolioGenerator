@@ -39,7 +39,7 @@ constructor(props) {
             const imageID = new Date().getTime()
             firebase.database().ref('messages/' + PID + '/images/' + imageID).set({
                             id: imageID,                   
-                            Text: '',
+                            Text: 'Bildtext',
                             image: downloadURL
                           });                        
                                   
@@ -66,7 +66,7 @@ constructor(props) {
             const videoID = new Date().getTime()
             firebase.database().ref('messages/' + PID + '/videos/' + videoID).set({
                             id: videoID, 
-                            Text: '',
+                            Text: 'Videotext',
                             video: downloadURL
                           });                        
                                   
