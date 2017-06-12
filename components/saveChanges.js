@@ -29,11 +29,14 @@ constructor(props) {
 
           //Dateien im Storage mit Database verknüpfen
  
-	      uploadTask.on('state_changed', (snapshot) => {},
+	      uploadTask.on('state_changed', (snapshot) => {
+            var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+            console.log(percent + "% done");
+        },
 	       // Handle unsuccessful uploads
        (error) => {console.log('upload error:', error)},
         // Handle successful uploads on complete
-        () => {
+        (complete) => {
             var downloadURL = uploadTask.snapshot.downloadURL 
             let PID = this.props.user_ID;   
             const imageID = new Date().getTime()
@@ -56,11 +59,14 @@ constructor(props) {
 
           //Dateien im Storage mit Database verknüpfen
  
-	      uploadTask.on('state_changed', (snapshot) => {},
+	      uploadTask.on('state_changed', (snapshot) => {
+            var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+            console.log(percent + "% done");
+        },
 	       // Handle unsuccessful uploads
        (error) => {console.log('upload error:', error)},
         // Handle successful uploads on complete
-        () => {
+        (complete) => {
             var downloadURL = uploadTask.snapshot.downloadURL 
             let PID = this.props.user_ID;   
             const videoID = new Date().getTime()
