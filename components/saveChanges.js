@@ -79,7 +79,8 @@ constructor(props) {
         console.log('url:', downloadURL)
         })
         this.setState({render_now : this.state.render_now++});
-        }                         
+      }          
+      window.location = './portfolio?id='+ this.props.user_ID;             
   }
 
 databaseWriter(file) {  
@@ -89,7 +90,7 @@ databaseWriter(file) {
 
 render () {
     return <div>
-      <button type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>
+      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>
       <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>
       <VideoUploading ref={(vidUploader) => { this.vidUploader = vidUploader}}></VideoUploading>
     </div>
