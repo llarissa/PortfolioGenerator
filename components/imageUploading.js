@@ -72,11 +72,7 @@ list_pictures()
                 <button data={key} className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
               </div>
             );
-        });
-       
-  } else
-  {
-    return(<h2 className="previewText">Your portfolio seems to be empty. Add your first image</h2>)
+        });       
   } 
 }
 
@@ -90,4 +86,3 @@ list_pictures()
   </div>   
 )}
 }
-
