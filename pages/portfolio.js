@@ -91,6 +91,8 @@ export default class Index extends Component {
 
     showImages()
     {
+      if(!this.state.messages) return;
+
         let imageList = this.state.messages[this.props.url.query.id].images;
         if (!imageList) imageList = {};     
         let key = 0;   
@@ -108,6 +110,7 @@ export default class Index extends Component {
 
      showVideos()
     {
+       if(!this.state.messages) return;
         let videoList = this.state.messages[this.props.url.query.id].videos;
         if (!videoList) videoList = {};     
         let key = 0;   
