@@ -79,13 +79,12 @@ constructor(props) {
         console.log('url:', downloadURL)
         })
         this.setState({render_now : this.state.render_now++});
-      }          
-      window.location = './portfolio?id='+ this.props.user_ID;             
+      }  
+      window.location = './portfolio?id='+ this.props.user_ID;                           
   }
 
 databaseWriter(file) {  
   //Daten Firebase-Storage speichern         
-
 }
 
 render () {

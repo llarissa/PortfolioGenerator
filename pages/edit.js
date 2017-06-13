@@ -6,6 +6,7 @@ import Layout from '../components/layouts/layout'
 import ImageUploading from '../components/imageUploading'
 import VideoUploading from '../components/videoUploading'
 import Save from '../components/saveChanges'
+let empty_project;
 
 export default class Edit extends Component {
   static async getInitialProps ({req, query}) {
@@ -70,10 +71,24 @@ constructor(probs) {
     })
   }
 
+deleteImage(e)
+{
+
+}
+
+deleteVideo(e)
+{
+  
+}
     showImages()
     {
         let imageList = this.state.messages[this.props.url.query.id].images;
-        if (!imageList) imageList = {};     
+        if (!imageList) 
+        {
+          imageList = {};  
+          empty_project = (<h2 className="previewText">Your portfolio seems to be empty. Add your first media</h2>);                          
+        }
+
         let key = 0;   
 
         return Object.keys(imageList).map((element) => {
@@ -85,6 +100,7 @@ constructor(probs) {
             return(
               <div>
                 <img key={key+1000} src={image}/>
+                <button data={key} className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
                 <br></br>
                 <textarea key={key} placeholder='Bildbeschriftung' 
                     id="textarea" value={image_text} 
@@ -111,6 +127,7 @@ constructor(probs) {
             return(
               <div>
                 <video key={key} src={video}/>
+                <button data={key} className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>
                 <br></br>
                 <textarea key={key+2000} placeholder='Videobeschriftung'
                     id="textarea" value={video_text} 
@@ -122,7 +139,7 @@ constructor(probs) {
     }
 
  render () {
-  const { messages, Files } = this.state  
+  const { messages, Files } = this.state    
 
     return <Layout>
 
@@ -131,7 +148,7 @@ constructor(probs) {
                     {messages[this.props.url.query.id].text}                 
              </h1>
          </div>  
-
+          {empty_project}   
           <Save user_ID={this.props.url.query.id}>
           </Save>
            
