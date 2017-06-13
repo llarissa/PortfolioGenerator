@@ -112,7 +112,7 @@ export default class Index extends Component {
 
     if (guest_auth)
     {
-      guest_stat = (<h2 className="guest_auth">Gastaccount</h2>);
+      guest_stat = (<h2 className="guest_auth"></h2>);
     }
     else
     {

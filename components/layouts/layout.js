@@ -8,6 +8,7 @@ export default ({ children, title = 'Der Portfolio Generator' }) => (
       <meta charSet='utf-8' />
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       <link rel="stylesheet" href="../static/css/style.css" />
+      <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet"/>
     </Head>
     <header>
       <nav>
@@ -18,7 +19,6 @@ export default ({ children, title = 'Der Portfolio Generator' }) => (
     { children }
 
     <footer>
-      I`m here to stay
     </footer>
   </div>
 )
