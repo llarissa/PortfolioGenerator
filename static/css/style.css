@@ -80,9 +80,9 @@ button:focus {
 
 }
 
-.gast_Login, .gast_Logout {
+.gast_Login {
     position: absolute;
-    left: 83%;
+    left: 75%;
     top: 15px;
 
 }

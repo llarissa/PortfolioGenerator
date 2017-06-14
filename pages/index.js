@@ -5,7 +5,7 @@ import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../components/layouts/layout'
 import Link from 'next/link'
 
-var guest_auth = true;
+var guest_auth;
 
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
@@ -28,19 +28,20 @@ export default class Index extends Component {
     }    
     this.addDbListener = this.addDbListener.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)    
   }
 
   componentDidMount () {
     if(firebase.apps.length === 0)
     {
-      firebase.initializeApp(clientCredentials)
+      firebase.initializeApp(clientCredentials)      
     }
 
     if (this.state.user) this.addDbListener()    
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        guest_auth = user.isAnonymous;
         this.setState({ user: user })
         return user.getToken()
           .then((token) => {
@@ -87,32 +88,29 @@ export default class Index extends Component {
     this.setState({ value: '' })
   }
 
-  handleLogin () { 
-    guest_auth = false;    
+  handleLogin () {        
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
   }
 
-  guest_handleLogin () {       
-    guest_auth = true; 
+  guest_handleLogin () {               
     firebase.auth().signInAnonymously().catch(function(error) {  
     var errorCode = error.code;
     var errorMessage = error.message;  
     console.log(errorCode + " - " + errorMessage)    
-  });
+  });  
   }
 
-  handleLogout () {
-    guest_auth = false;
-    firebase.auth().signOut()
+  handleLogout () {    
+    firebase.auth().signOut()    
     }
 
   render () {
     const {user, value, messages} = this.state      
-    let aut_stat, guest_stat;
+    let aut_stat, guest_stat;      
 
     if (guest_auth)
     {
-      guest_stat = (<h2 className="guest_auth"></h2>);
+      guest_stat = (<h2 className="guest_auth">Gastaccount</h2>);
     }
     else
     {
@@ -122,22 +120,18 @@ export default class Index extends Component {
               type={'text'}
               onChange={this.handleChange}
               placeholder={'enter your name'}
-              value={value}
-            />
-          </form>     
-                    )
+              value={value}/>
+          </form>)
     }
 
     return <Layout>  
-      {              
+      {<button className="gast_Login" onClick={this.guest_handleLogin}>Gastaccount</button>} 
+      {       
         user        
         ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
         : <button className="Login" onClick={this.handleLogin}>Login</button>               
-      }  
-      {
-        <button className="gast_Login" onClick={this.guest_handleLogin}>Gast Login</button>
-      }              
-          <h1>Portfolio Generator</h1> 
+      }             
+          <h1>Portfolio Generator</h1>           
           {guest_stat}         
           <p>If your name isn't listed below, please create a new portfolio</p>               
       {

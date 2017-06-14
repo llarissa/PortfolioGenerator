@@ -68,7 +68,11 @@ list_pictures()
 
             return(
               <div key={key}>
-                <img src={image}/>
+                <img src={image}/>            
+                <textarea key={key} placeholder='Bildbeschriftung' 
+                    id="textarea" value={Bildbeschreibung} 
+                    onChange={this.onChange}>
+                </textarea>    
                 <button data={key} className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
               </div>
             );

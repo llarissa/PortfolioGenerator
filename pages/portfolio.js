@@ -5,6 +5,8 @@ import { clientCredentials } from '../firebaseCredentials'
 import Layout from '../components/layouts/layout'
 import Link from '../pages/index'
 
+var guest_auth;
+
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
     const user = req && req.session ? req.session.decodedToken : null    
@@ -41,6 +43,7 @@ export default class Index extends Component {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        guest_auth = user.isAnonymous;
         this.setState({ user: user })
         return user.getToken()
           .then((token) => {
@@ -108,6 +111,18 @@ export default class Index extends Component {
         })
     }
 
+    showEdit()
+    {
+      if(!guest_auth)
+      {
+      return(
+          <form action="../edit" method="GET">
+          <button name="id" value={this.props.url.query.id} type="submit">Edit </button> 
+          </form>
+      )
+      }
+    }
+
      showVideos()
     {
        if(!this.state.messages) return;
@@ -137,7 +152,6 @@ export default class Index extends Component {
                     {messages[this.props.url.query.id].text}                 
                 </h1>)}
       </div> 
-
               <div>
                   {this.showImages()}
               </div> 
@@ -146,10 +160,9 @@ export default class Index extends Component {
                   {this.showVideos()}
               </div> 
 
-          <form action="../edit" method="GET">
-          <button name="id" value={this.props.url.query.id} type="submit">Edit </button> 
-          </form>
-
+              <div>
+                  {this.showEdit()}
+              </div>
       <ul>
       </ul> 
       </Layout>
