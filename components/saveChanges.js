@@ -5,21 +5,24 @@ import { clientCredentials } from '../firebaseCredentials'
 import ImageUploading from '../components/imageUploading.js'
 import VideoUploading from '../components/videoUploading.js'
 var img_files
+var img_text
 var vid_files
+var vid_text
 
 export default class Save extends Component {
 
 constructor(props) {
     super(props)
-      this.state = { render_now : 0 }
-      this.databaseWriter = this.databaseWriter.bind(this)
+      this.state = { render_now : 0 }      
 }
 
   handleUploader(e) {
     e.preventDefault()    
 
     img_files = this.imgUploader.state.imagefilelist; 
-    vid_files = this.vidUploader.state.videofilelist;    
+    img_text = this.imgUploader.state.imagetext;
+    vid_files = this.vidUploader.state.videofilelist;  
+    vid_text =  this.vidUploader.state.videotext;
 
     for(var i=0; i < img_files.length; i++){        
         var filename = img_files[i].name
@@ -42,13 +45,13 @@ constructor(props) {
             const imageID = new Date().getTime()
             firebase.database().ref('messages/' + PID + '/images/' + imageID).set({
                             id: imageID,                   
-                            Text: 'Bildtext',
+                            Text: img_text,
                             image: downloadURL
                           });                        
                                   
         console.log('url:', downloadURL)
         })
-        this.setState({render_now : this.state.render_now++});
+        this.setState({render_now : this.state.render_now++});        
       }  
 
     for(var i=0; i < vid_files.length; i++){        
@@ -72,26 +75,21 @@ constructor(props) {
             const videoID = new Date().getTime()
             firebase.database().ref('messages/' + PID + '/videos/' + videoID).set({
                             id: videoID, 
-                            Text: 'Videotext',
+                            Text: vid_text,
                             video: downloadURL
                           });                        
                                   
         console.log('url:', downloadURL)
         })
-        this.setState({render_now : this.state.render_now++});
-      }  
-      //window.location = './portfolio?id='+ this.props.user_ID;                           
+        this.setState({render_now : this.state.render_now++});        
+      }              
+      //window.location = './portfolio?id='+ this.props.user_ID;                     
   }
-
-databaseWriter(file) {  
-  //Daten Firebase-Storage speichern         
-}
 
 render () {
     return <div>
-      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>
-      <br></br><progress max="100" value={0}/>
-      <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>
+      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>      
+      <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>      
       <VideoUploading ref={(vidUploader) => { this.vidUploader = vidUploader}}></VideoUploading>
     </div>
 }}

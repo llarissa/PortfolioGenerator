@@ -87,22 +87,18 @@ deleteVideo(e)
         {
           imageList = {};  
           empty_project = (<h2 className="previewText">Your portfolio seems to be empty. Add your first media</h2>);                          
-        }
-
-        let key = 0;   
-
+        }         
         return Object.keys(imageList).map((element) => {
             
             let image = imageList[element].image;  
-            let image_text = imageList[element].Text; 
-            key++;         
+            let image_text = imageList[element].Text;                     
 
             return(
               <div>
-                <img key={key+1000} src={image}/>
-                <button data={key} className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
+                <img src={image}/>
+                <button className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
                 <br></br>
-                <textarea key={key} placeholder='Bildbeschriftung' 
+                <textarea placeholder='Bildbeschriftung' 
                     id="textarea" value={image_text} 
                     onChange={this.onChange}>
                 </textarea>
@@ -115,21 +111,19 @@ deleteVideo(e)
     showVideos()
     {
         let videoList = this.state.messages[this.props.url.query.id].videos;
-        if (!videoList) videoList = {};     
-        let key = 0;   
+        if (!videoList) videoList = {};             
 
         return Object.keys(videoList).map((element) => {
             
             let video = videoList[element].video;  
-            let video_text = videoList[element].Text;  
-            key++;         
+            let video_text = videoList[element].Text;                     
             
             return(
               <div>
-                <video key={key} src={video}/>
-                <button data={key} className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>
+                <video src={video} controls/>
+                <button className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>
                 <br></br>
-                <textarea key={key+2000} placeholder='Videobeschriftung'
+                <textarea placeholder='Videobeschriftung'
                     id="textarea" value={video_text} 
                     onChange={this.onChange}>
                 </textarea>

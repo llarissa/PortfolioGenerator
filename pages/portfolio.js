@@ -92,21 +92,60 @@ export default class Index extends Component {
     e.preventDefault(); 
   }
 
+  showheadline()
+  {
+    if(!this.state.messages) return;
+
+    let headline = this.state.messages;
+
+            return Object.keys(headline).map((element) => {
+            
+            let text = headline[element].headline;            
+
+            return(
+              <div>
+                <h2> {text} </h2>
+              </div>
+            )
+        })
+  }
+
+  showsignature()
+  {
+    if(!this.state.messages) return;
+
+    let signat = this.state.messages;
+
+            return Object.keys(signat).map((element) => {
+            
+            let text = signat[element].signature;                                 
+
+            return(
+              <div>
+                <h3> {text} </h3>
+              </div>
+            )
+        })
+  }
+
     showImages()
     {
       if(!this.state.messages) return;
 
         let imageList = this.state.messages[this.props.url.query.id].images;
-        if (!imageList) imageList = {};     
-        let key = 0;   
+        if (!imageList) imageList = {};               
 
         return Object.keys(imageList).map((element) => {
             
             let image = imageList[element].image;   
-            key++;         
+            let image_text = imageList[element].Text;                     
 
             return(
-                <img key={key} src={image}/>
+              <div>
+                <img src={image}/>
+                <br></br>
+                <a>{image_text}</a>
+              </div>
             )
         })
     }
@@ -126,17 +165,21 @@ export default class Index extends Component {
      showVideos()
     {
        if(!this.state.messages) return;
+
         let videoList = this.state.messages[this.props.url.query.id].videos;
-        if (!videoList) videoList = {};     
-        let key = 0;   
+        if (!videoList) videoList = {};              
 
         return Object.keys(videoList).map((element) => {
             
             let video = videoList[element].video;   
-            key++;         
+            let video_text = videoList[element].Text;                    
 
             return(
-                <video key={key} src={video}/>
+              <div>                
+                <video src={video} controls/>
+                <br></br>
+                <a>{video_text}</a>
+              </div>
             )
         })
     }
@@ -152,6 +195,11 @@ export default class Index extends Component {
                     {messages[this.props.url.query.id].text}                 
                 </h1>)}
       </div> 
+
+      <div>
+            {this.showheadline()}
+      </div>
+
               <div>
                   {this.showImages()}
               </div> 
@@ -163,8 +211,11 @@ export default class Index extends Component {
               <div>
                   {this.showEdit()}
               </div>
-      <ul>
-      </ul> 
+
+      <div>
+          {this.showsignature()}
+      </div>
+
       </Layout>
 )}
 }

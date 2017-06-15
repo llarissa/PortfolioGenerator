@@ -11,22 +11,21 @@ constructor(props) {
   super(props)
   this.state = {  
     imagefilelist: {} ,
+    imagetext: '',
+    value: '',
     file: '',imagePreviewUrl:''}        
-    this.images = []    
+    this.images = [], 
+    this.handleChange = this.handleChange.bind(this)
 }
 
 deleteImage (e) {
-
   var key = e.target.getAttribute("data");
   console.log(key);
   this.images.splice(key, 1);
-
   this.setState({images:this.images})                            
-
 }
 
-
-  handleImageChange(e) {
+ handleImageChange(e) {
     e.preventDefault()
     
     var counter;
@@ -57,6 +56,11 @@ deleteImage (e) {
     reader.readAsDataURL(files[counter])
   }
 
+handleChange (event) {
+    this.setState({ value: event.target.value })   
+    this.setState({imagetext : event.target.value});
+  } 
+
 list_pictures()
 {  
   let {imagePreviewUrl} = this.state;
@@ -69,9 +73,9 @@ list_pictures()
             return(
               <div key={key}>
                 <img src={image}/>            
-                <textarea key={key} placeholder='Bildbeschriftung' 
-                    id="textarea" value={Bildbeschreibung} 
-                    onChange={this.onChange}>
+                <textarea data={key} placeholder='Bildbeschriftung' 
+                    id="textarea" value={this.state.value} 
+                    onChange={this.handleChange}>
                 </textarea>    
                 <button data={key} className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
               </div>

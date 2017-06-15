@@ -11,33 +11,32 @@ constructor(props) {
   super(props)
   this.state = {  
     videofilelist: {} ,
+    videotext: '',
+    value: '',
     file: '',videoPreviewUrl:''}        
-    this.videos = []    
+    this.videos = [],   
+    this.handleChange = this.handleChange.bind(this) 
 }
 
 deleteVideo (e) {
-
   var key = e.target.getAttribute("data");
   console.log(key);
   this.videos.splice(key, 1);
-
   this.setState({videos:this.videos})                            
-
 }
 
  handleVideoChange(e) {
     e.preventDefault()
 
-    var counter
-    let reader = new FileReader()
-    files = e.target.files
+    var counter;
+    let reader = new FileReader();
+    files = e.target.files;
 
     reader.onloadend = () => {
       this.setState({
         file: this.state.files,
         videoPreviewUrl: reader.result
-      })
-    
+      })    
 
       this.videos.push(reader.result);      
       
@@ -57,6 +56,11 @@ deleteVideo (e) {
     reader.readAsDataURL(files[counter])
   }
 
+handleChange (event) {
+    this.setState({ value: event.target.value })   
+    this.setState({videotext : event.target.value});
+  } 
+
 list_videos()
 {  
   let {videoPreviewUrl} = this.state;
@@ -68,16 +72,19 @@ list_videos()
 
             return(
                <div key={key}>
-                <video src={video} controls/>     
+                <video src={video} controls/> 
+                <br></br>
+                <textarea data={key} placeholder='Bildbeschriftung' 
+                    id="textarea" value={this.state.value} 
+                    onChange={this.handleChange}>
+                </textarea>     
                 <button data={key} className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>  
                 </div>            
             );
         });               
-  } else
-  {
-    return('')
   } 
 }
+
 render () {
      return (
     <div>
