@@ -28,6 +28,9 @@ constructor(probs) {
       Unterschrift: null,
       messages: this.props.messages
     }
+
+    this.imageText = "";
+
     this.addDbListener = this.addDbListener.bind(this)   
   }
   
@@ -80,6 +83,31 @@ deleteVideo(e)
 {
   
 }
+
+onChangeImagetextHandler(e)
+{
+  let imageID = e.target.getAttribute("id");
+  let imageText = e.target.value;
+
+  let imageList = this.state.messages[this.props.url.query.id].images;
+  let image = imageList[imageID];
+  image.Text = imageText;
+
+  this.setState({messages: this.state.messages});
+}
+
+onChangeVideotextHandler(e)
+{
+  let videoID = e.target.getAttribute("id");
+  let videoText = e.target.value;
+
+  let videoList = this.state.messages[this.props.url.query.id].videos;
+  let video = videoList[videoID];
+  video.Text = videoText;
+
+  this.setState({messages: this.state.messages});
+}
+
     showImages()
     {
         let imageList = this.state.messages[this.props.url.query.id].images;
@@ -99,14 +127,13 @@ deleteVideo(e)
                 <button className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
                 <br></br>
                 <textarea placeholder='Bildbeschriftung' 
-                    id="textarea" value={image_text} 
-                    onChange={this.onChange}>
+                    id={element} value={image_text} 
+                    onChange={this.onChangeImagetextHandler.bind(this)}>
                 </textarea>
                 </div>
             );
         });
     }
-
     
     showVideos()
     {
@@ -124,13 +151,52 @@ deleteVideo(e)
                 <button className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>
                 <br></br>
                 <textarea placeholder='Videobeschriftung'
-                    id="textarea" value={video_text} 
-                    onChange={this.onChange}>
+                    id={element} value={video_text} 
+                    onChange={this.onChangeVideotextHandler.bind(this)}>
                 </textarea>
               </div>
             );
         });
     }
+
+changetexthandler()
+{
+  let messageID = this.props.url.query.id;
+
+  firebase.database().ref('messages/' + messageID).update({
+                            images: this.state.messages[messageID].images
+                          });  
+
+  firebase.database().ref('messages/' + messageID).update({
+                            videos: this.state.messages[messageID].videos
+                          });   
+
+  firebase.database().ref('messages/' + messageID).update({
+                            headline: this.state.messages[messageID].headline
+                          }); 
+
+  firebase.database().ref('messages/' + messageID).update({
+                            signature: this.state.messages[messageID].signature
+                          });       
+}
+
+  onChangeheadhandler (event) {
+    let headtxt = event.target.value;
+    
+    let headtext = this.state.messages[this.props.url.query.id];
+    headtext.headline = headtxt;
+
+  this.setState({messages: this.state.messages});
+  }
+
+  onChangesignathandler (event) {
+    let signtxt = event.target.value;
+    
+    let signtext = this.state.messages[this.props.url.query.id];
+    signtext.signature = signtxt;
+
+  this.setState({messages: this.state.messages});
+  }
 
  render () {
   const { messages, Files } = this.state    
@@ -143,17 +209,19 @@ deleteVideo(e)
              </h1>
          </div>  
           {empty_project}   
+          <button className="savechanges" onClick={this.changetexthandler.bind(this)}>Textänderungen speichern</button>
           <Save user_ID={this.props.url.query.id}>
           </Save>
-           
+                     
+            <br></br>
             <input type="text" placeholder="Überschrift" className="title"
-              value={this.state.nameOne} onChange={this.onChange}/>
+              value={this.state.nameOne} onChange={this.onChangeheadhandler.bind(this)}/>
 
             <div> {this.showImages()} </div> 
-            <div> {this.showVideos()} </div>
+            <div> {this.showVideos()} </div>            
 
             <input type="text" placeholder="Unterschrift" className="TextThree"          
-              value={this.state.nameThree} onChange={this.onChange}/>
+              value={this.state.nameThree} onChange={this.onChangesignathandler.bind(this)}/>
       </Layout>
   }
 }
