@@ -4,6 +4,7 @@ import 'isomorphic-fetch'
 import { clientCredentials } from '../firebaseCredentials'
 import ImageUploading from '../components/imageUploading.js'
 import VideoUploading from '../components/videoUploading.js'
+
 var img_files
 var img_text
 var vid_files
@@ -88,7 +89,7 @@ constructor(props) {
 
 render () {
     return <div>
-      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>Änderungen speichern</button>      
+      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>Media hochladen</button>
       <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>      
       <VideoUploading ref={(vidUploader) => { this.vidUploader = vidUploader}}></VideoUploading>
     </div>
