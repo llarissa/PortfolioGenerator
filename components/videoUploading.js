@@ -90,7 +90,7 @@ render () {
     <div>
       <div className="vidPreview">{this.list_videos()}</div>
   <label className="uploadControls">Add Video
-  <input className="addBtn" type="file" accept="video/avi, video/mov, video/*" onChange={(e)=>this.handleVideoChange(e)} multiple/>
+  <input className="addBtn" type="file" accept="video/avi, video/mov, video/*" onChange={(e)=>this.handleVideoChange(e)} />
   </label>
   </div>
      )}

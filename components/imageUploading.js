@@ -89,7 +89,7 @@ list_pictures()
   <div>   
     <div className="imgPreview">{this.list_pictures()}</div>        
     <label className="uploadControls">Add Image
-       <input className="addBtn" type="file" accept="image/*" onChange={(e)=>this.handleImageChange(e)} multiple/>
+       <input className="addBtn" type="file" accept="image/*" onChange={(e)=>this.handleImageChange(e)} />
     </label>
   </div>   
 )}
