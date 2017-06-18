@@ -96,36 +96,26 @@ export default class Index extends Component {
   {
     if(!this.state.messages) return;
 
-    let headline = this.state.messages;
-
-            return Object.keys(headline).map((element) => {
-            
-            let text = headline[element].headline;            
+    let headline = this.state.messages[this.props.url.query.id].headline;    
 
             return(
               <div>
-                <h2> {text} </h2>
+                <h2> {headline} </h2>
               </div>
-            )
-        })
+            )        
   }
 
   showsignature()
   {
     if(!this.state.messages) return;
 
-    let signat = this.state.messages;
-
-            return Object.keys(signat).map((element) => {
-            
-            let text = signat[element].signature;                                 
+    let signat = this.state.messages[this.props.url.query.id].signature;                            
 
             return(
               <div>
-                <h3> {text} </h3>
+                <h3> {signat} </h3>
               </div>
-            )
-        })
+            )        
   }
 
     showImages()
