@@ -72,12 +72,7 @@ list_videos()
 
             return(
                <div key={key}>
-                <video src={video} controls/> 
-                <br></br>
-                <textarea data={key} placeholder='Bildbeschriftung' 
-                    id="textarea" value={this.state.value} 
-                    onChange={this.handleChange}>
-                </textarea>     
+                <video src={video} controls/>                    
                 <button data={key} className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>  
                 </div>            
             );
