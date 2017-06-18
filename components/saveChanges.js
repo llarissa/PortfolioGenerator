@@ -27,7 +27,7 @@ constructor(props) {
 
     for(var i=0; i < img_files.length; i++){        
         var filename = img_files[i].name
-        var storageRef = firebase.storage().ref('Images/'+ filename)
+        var storageRef = firebase.storage().ref('Images/'+ this.props.user_ID + '/' + filename)
         var uploadTask = storageRef.put(img_files[i])
         console.log('file', img_files[i])
 
@@ -57,7 +57,7 @@ constructor(props) {
 
     for(var i=0; i < vid_files.length; i++){        
         var filename = vid_files[i].name
-        var storageRef = firebase.storage().ref('Videos/'+ filename)
+        var storageRef = firebase.storage().ref('Videos/'+ this.props.user_ID + '/' + filename)
         var uploadTask = storageRef.put(vid_files[i])
         console.log('file', vid_files[i])
 
