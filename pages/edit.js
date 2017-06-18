@@ -164,20 +164,20 @@ changetexthandler()
   let messageID = this.props.url.query.id;
 
   firebase.database().ref('messages/' + messageID).update({
-                            images: this.state.messages[messageID].images
-                          });  
-
-  firebase.database().ref('messages/' + messageID).update({
-                            videos: this.state.messages[messageID].videos
-                          });   
-
-  firebase.database().ref('messages/' + messageID).update({
                             headline: this.state.messages[messageID].headline
                           }); 
 
   firebase.database().ref('messages/' + messageID).update({
                             signature: this.state.messages[messageID].signature
-                          });       
+                          });  
+
+  firebase.database().ref('messages/' + messageID).update({
+                            images: this.state.messages[messageID].images
+                          });  
+
+  firebase.database().ref('messages/' + messageID).update({
+                            videos: this.state.messages[messageID].videos
+                          });        
 }
 
   onChangeheadhandler (event) {
@@ -215,13 +215,13 @@ changetexthandler()
                      
             <br></br>
             <input type="text" placeholder="Überschrift" className="title"
-              value={this.state.nameOne} onChange={this.onChangeheadhandler.bind(this)}/>
+              value={this.state.messages[this.props.url.query.id].headline} onChange={this.onChangeheadhandler.bind(this)}/>
 
             <div> {this.showImages()} </div> 
             <div> {this.showVideos()} </div>            
 
             <input type="text" placeholder="Unterschrift" className="TextThree"          
-              value={this.state.nameThree} onChange={this.onChangesignathandler.bind(this)}/>
+              value={this.state.messages[this.props.url.query.id].signature} onChange={this.onChangesignathandler.bind(this)}/>
       </Layout>
   }
 }
