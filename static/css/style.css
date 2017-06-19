@@ -158,6 +158,19 @@ min-height: 120px;
 min-width: 348px;
 overflow-y: auto;
 word-wrap:break-word;
-resize: none
+resize: none;
+background-color: white;
+color: rgb(0,204,204);
+font-size:18px;
+padding:8px;
+padding-right: 200px;
+border: solid 3px rgb(0,204,204);
+border-radius: 12px;
+}
+
+textarea:focus {
+    outline: none;
+    background-color: rgb(50,50,50);
+    color: rgb(0,204,204);
 }
 
