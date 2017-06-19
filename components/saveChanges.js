@@ -89,7 +89,7 @@ constructor(props) {
 
 render () {
     return <div>
-      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>Media hochladen</button>
+      <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>upload media</button>
       <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>      
       <VideoUploading ref={(vidUploader) => { this.vidUploader = vidUploader}}></VideoUploading>
     </div>

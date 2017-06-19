@@ -36,7 +36,7 @@ render() {
                <br></br>
         <input
           type="text"
-          placeholder="Überschrift"
+          placeholder="headline"
           value={this.state.name}
           onChange={this.onChange}
         />
@@ -54,7 +54,7 @@ render() {
 
         <input
           type="text"
-          placeholder="Unterschrift"
+          placeholder="footer text"
           value={this.state.name}
           onChange={this.onChange}
         />

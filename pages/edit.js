@@ -126,7 +126,7 @@ onChangeVideotextHandler(e)
                 <img src={image}/>
                 <button className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
                 <br></br>
-                <textarea placeholder='Bildbeschriftung' 
+                <textarea placeholder='You can type in an image caption' 
                     id={element} value={image_text} 
                     onChange={this.onChangeImagetextHandler.bind(this)}>
                 </textarea>
@@ -209,7 +209,7 @@ changetexthandler()
              </h1>
          </div>  
           {empty_project}   
-          <button className="savechanges" onClick={this.changetexthandler.bind(this)}>Textänderungen speichern</button>
+          <button className="savechanges" onClick={this.changetexthandler.bind(this)}>save text changes</button>
           <Save user_ID={this.props.url.query.id}>
           </Save>
                      

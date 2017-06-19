@@ -110,7 +110,7 @@ export default class Index extends Component {
 
     if (guest_auth)
     {
-      guest_stat = (<h2 className="guest_auth">Gastaccount</h2>);
+      guest_stat = (<h2 className="guest_auth">You are logged in as a guest</h2>);
     }
     else
     {
@@ -125,7 +125,7 @@ export default class Index extends Component {
     }
 
     return <Layout>  
-      {<button className="gast_Login" onClick={this.guest_handleLogin}>Gastaccount</button>} 
+      {<button className="gast_Login" onClick={this.guest_handleLogin}>Login as guest</button>} 
       {       
         user        
         ? <button className="Logout" onClick={this.handleLogout}>Logout</button>
