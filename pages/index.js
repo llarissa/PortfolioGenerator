@@ -82,8 +82,8 @@ export default class Index extends Component {
     firebase.database().ref(`messages/${date}`).set({      
       id: date,
       text: this.state.value,
-      headline: 'Überschrift',
-      signature: 'Unterschrift'
+      headline: '',
+      signature: ''
     })
     this.setState({ value: '' })
   }
