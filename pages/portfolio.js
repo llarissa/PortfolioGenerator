@@ -134,7 +134,7 @@ export default class Index extends Component {
               <div>
                 <img src={image}/>
                 <br></br>
-                <a>{image_text}</a>
+                <h3>{image_text}</h3>
               </div>
             )
         })
@@ -168,7 +168,7 @@ export default class Index extends Component {
               <div>                
                 <video src={video} controls/>
                 <br></br>
-                <a>{video_text}</a>
+                <h3>{video_text}</h3>
               </div>
             )
         })

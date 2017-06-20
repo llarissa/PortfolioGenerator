@@ -10,6 +10,14 @@ h1 {
     margin-top: 20px;
     margin-bottom: 20px;
     }
+
+h2 {
+    color:rgb(0,204,204);
+    font-size: 80px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    line-height: 80%;
+}
     
 div {
     font-family: "Helvetica", sans-serif;
@@ -151,7 +159,12 @@ label:hover {
 
 .uploadControls {
     display: inline-block;
+    color: white;
+    background-color: rgb(0,204,204);
+    outline:none;
+
 }
+
 
 textarea {
 min-height: 120px;
