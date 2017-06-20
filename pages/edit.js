@@ -74,15 +74,6 @@ constructor(probs) {
     })
   }
 
-deleteImage(e)
-{
-
-}
-
-deleteVideo(e)
-{
-  
-}
 
 onChangeImagetextHandler(e)
 {
@@ -124,7 +115,6 @@ onChangeVideotextHandler(e)
             return(
               <div>
                 <img src={image}/>
-                <button className="deleteButton" onClick={(e)=>this.deleteImage(e)}>x</button>
                 <br></br>
                 <textarea placeholder='You can type in an image caption' 
                     id={element} value={image_text} 
@@ -148,9 +138,8 @@ onChangeVideotextHandler(e)
             return(
               <div>
                 <video src={video} controls/>
-                <button className="deleteButton" onClick={(e)=>this.deleteVideo(e)}>x</button>
                 <br></br>
-                <textarea placeholder='Videobeschriftung'
+                <textarea placeholder='You can type in video caption'
                     id={element} value={video_text} 
                     onChange={this.onChangeVideotextHandler.bind(this)}>
                 </textarea>
@@ -214,13 +203,13 @@ changetexthandler()
           </Save>
                      
             <br></br>
-            <input type="text" placeholder="Überschrift" className="title"
+            <input type="text" placeholder="headline" className="title"
               value={this.state.messages[this.props.url.query.id].headline} onChange={this.onChangeheadhandler.bind(this)}/>
 
             <div> {this.showImages()} </div> 
             <div> {this.showVideos()} </div>            
 
-            <input type="text" placeholder="Unterschrift" className="TextThree"          
+            <input type="text" placeholder="footer text" className="TextThree"          
               value={this.state.messages[this.props.url.query.id].signature} onChange={this.onChangesignathandler.bind(this)}/>
       </Layout>
   }
