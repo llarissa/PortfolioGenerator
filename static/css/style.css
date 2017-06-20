@@ -33,8 +33,8 @@ nav {
     
 }
 
-img {
-    width: 1000px;
+img, video {
+    width: 1220px;
     padding-top: 20px;
     margin-bottom: 0px;
 }
@@ -110,6 +110,7 @@ input[type="text"] {
     max-width: 1000px;
     word-wrap: break-word;
     white-space: normal;  
+    width: 500px;
 }
 
 a:hover {
