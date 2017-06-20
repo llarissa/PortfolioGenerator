@@ -36,6 +36,7 @@ nav {
 img {
     width: 1000px;
     padding-top: 20px;
+    margin-bottom: 0px;
 }
 
 footer {
@@ -104,9 +105,11 @@ input[type="text"] {
     color: rgb(0,204,204);
     font-size:18px;
     padding:8px;
-    padding-right: 200px;
     border: solid 3px rgb(0,204,204);
     border-radius: 12px;
+    max-width: 1000px;
+    word-wrap: break-word;
+    white-space: normal;  
 }
 
 a:hover {
@@ -165,6 +168,20 @@ label:hover {
 
 }
 
+h3 {
+    margin-top: 0px;
+    margin-bottom: 50px;
+    color: lightgray;
+    font-size: 22px;
+    width: 90%;
+    line-height: 30px;
+}
+
+.signature {
+    color: rgb(0,204,204);
+    font-size: 26px;
+
+}
 
 progress {
   -webkit-appearance: none;
@@ -187,17 +204,18 @@ progress {
 
 textarea {
 min-height: 120px;
-min-width: 348px;
+min-width: 800px;
 overflow-y: auto;
-word-wrap:break-word;
 resize: none;
 background-color: white;
 color: rgb(0,204,204);
 font-size:18px;
 padding:8px;
-padding-right: 200px;
 border: solid 3px rgb(0,204,204);
 border-radius: 12px;
+max-width: 1000px;
+word-wrap: break-word;
+white-space: normal;  
 }
 
 textarea:focus {

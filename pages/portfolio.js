@@ -113,7 +113,7 @@ export default class Index extends Component {
 
             return(
               <div>
-                <h3> {signat} </h3>
+                <h3 className="signature"> {signat} </h3>
               </div>
             )        
   }
@@ -198,13 +198,15 @@ export default class Index extends Component {
                   {this.showVideos()}
               </div> 
 
-              <div>
-                  {this.showEdit()}
-              </div>
-
+           
       <div>
           {this.showsignature()}
       </div>
+
+         <div>
+                  {this.showEdit()}
+              </div>
+
 
       </Layout>
 )}
