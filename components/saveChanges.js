@@ -9,6 +9,7 @@ var img_files
 var img_text
 var vid_files
 var vid_text
+var progress_upload = 0;
 
 export default class Save extends Component {
 
@@ -36,6 +37,7 @@ constructor(props) {
 	      uploadTask.on('state_changed', (snapshot) => {
             var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
             console.log(percent + "% done");
+            progress_upload = percent;
         },
 	       // Handle unsuccessful uploads
        (error) => {console.log('upload error:', error)},
@@ -66,6 +68,7 @@ constructor(props) {
 	      uploadTask.on('state_changed', (snapshot) => {
             var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
             console.log(percent + "% done");
+            progress_upload = percent;
         },
 	       // Handle unsuccessful uploads
        (error) => {console.log('upload error:', error)},
@@ -90,6 +93,7 @@ constructor(props) {
 render () {
     return <div>
       <button className ="saveChanges" type="button" onClick={(e)=>this.handleUploader(e)}>upload media</button>
+      <progress max="100" value={progress_upload}/>
       <ImageUploading ref={(imgUploader) => { this.imgUploader = imgUploader}}></ImageUploading>      
       <VideoUploading ref={(vidUploader) => { this.vidUploader = vidUploader}}></VideoUploading>
     </div>

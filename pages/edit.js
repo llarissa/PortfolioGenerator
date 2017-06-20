@@ -7,6 +7,7 @@ import ImageUploading from '../components/imageUploading'
 import VideoUploading from '../components/videoUploading'
 import Save from '../components/saveChanges'
 let empty_project;
+var progress_upload = 0;
 
 export default class Edit extends Component {
   static async getInitialProps ({req, query}) {
@@ -151,6 +152,7 @@ onChangeVideotextHandler(e)
 changetexthandler()
 {
   let messageID = this.props.url.query.id;
+  progress_upload = 100;
 
   firebase.database().ref('messages/' + messageID).update({
                             headline: this.state.messages[messageID].headline
@@ -199,6 +201,7 @@ changetexthandler()
          </div>  
           {empty_project}   
           <button className="savechanges" onClick={this.changetexthandler.bind(this)}>save text changes</button>
+          <progress max="100" value={progress_upload}/>
           <Save user_ID={this.props.url.query.id}>
           </Save>
                      
