@@ -1,9 +1,9 @@
 {
   "name": "portfolio_generator",
   "version": "1.0.0",
-  "description": "Webapp-Funkyfeatures",  
+  "description": "Webapp-Funkyfeatures",
   "scripts": {
-    "dev": "node app.js",    
+    "dev": "node app.js",
     "start": "npm run dev"
   },
   "author": "FunkyFeatures",

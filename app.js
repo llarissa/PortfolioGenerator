@@ -11,8 +11,9 @@ const handle = app.getRequestHandler()
 
 const firebase = admin.initializeApp({
   credential: admin.credential.cert(require('./firebaseCredentials').serverCredentials),
-  databaseURL: 'https://with-firebase-23c22.firebaseio.com/' // TODO database URL goes here
+  databaseURL: 'https://portfoliotestspeicher.firebaseio.com' // TODO database URL goes here
 }, 'server')
+
 
 app.prepare()
 .then(() => {
